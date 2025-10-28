@@ -1,0 +1,391 @@
+/**
+ * SettingsPage Styles
+ * تنسيقات صفحة الإعدادات
+ */
+
+.settings-page {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Settings Container - حاوية الإعدادات */
+.settings-container {
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  gap: 32px;
+  margin-top: 24px;
+}
+
+/* Profile Card - كارت الملف الشخصي */
+.profile-card {
+  background: white;
+  border-radius: 12px;
+  padding: 32px;
+  border: 1px solid #e5e7eb;
+  height: fit-content;
+}
+
+.profile-avatar-large {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #8b5cf6, #6366f1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 700;
+  font-size: 36px;
+  margin: 0 auto 24px;
+}
+
+.profile-info {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.profile-name {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 8px;
+}
+
+.profile-role {
+  font-size: 16px;
+  color: #6b7280;
+  margin-bottom: 12px;
+}
+
+.profile-badge {
+  margin-bottom: 16px;
+}
+
+.super-admin-badge {
+  background: #ede9fe;
+  color: #7c3aed;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.profile-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.contact-icon {
+  font-size: 16px;
+  width: 20px;
+}
+
+/* Settings Content - محتوى الإعدادات */
+.settings-content {
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  overflow: hidden;
+}
+
+/* Settings Tabs - تبويبات الإعدادات */
+.settings-tabs {
+  display: flex;
+  border-bottom: 1px solid #e5e7eb;
+  background: #f9fafb;
+}
+
+.tab-btn {
+  padding: 16px 24px;
+  border: none;
+  background: none;
+  font-size: 14px;
+  font-weight: 500;
+  color: #6b7280;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-bottom: 2px solid transparent;
+}
+
+.tab-btn:hover {
+  color: #374151;
+  background: #f3f4f6;
+}
+
+.tab-btn.active {
+  color: #6366f1;
+  border-bottom-color: #6366f1;
+  background: white;
+}
+
+/* Tab Content - محتوى التبويبات */
+.tab-content {
+  padding: 32px;
+}
+
+.tab-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.section-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.section-subtitle {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+/* Form Elements - عناصر النموذج */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+}
+
+.form-input,
+.form-textarea {
+  padding: 12px 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.form-textarea {
+  resize: vertical;
+  font-family: inherit;
+}
+
+/* Permissions List - قائمة الصلاحيات */
+.permissions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.permission-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background: #f9fafb;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+}
+
+.permission-info h4 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 4px;
+}
+
+.permission-info p {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.status-badge {
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.status-badge.granted {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.status-badge.denied {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+/* Notifications List - قائمة الإشعارات */
+.notifications-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.notification-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background: #f9fafb;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+}
+
+.notification-info h4 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 4px;
+}
+
+.notification-info p {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.toggle-switch {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.toggle-switch.enabled {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.toggle-switch.enabled:hover {
+  background: #bfdbfe;
+}
+
+.toggle-switch.disabled {
+  background: #f3f4f6;
+  color: #6b7280;
+}
+
+.toggle-switch.disabled:hover {
+  background: #e5e7eb;
+}
+
+/* Activity List - قائمة النشاطات */
+.activity-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.activity-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background: #f9fafb;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+}
+
+.activity-icon {
+  font-size: 20px;
+  width: 24px;
+  text-align: center;
+}
+
+.activity-info {
+  flex: 1;
+}
+
+.activity-action {
+  font-size: 14px;
+  color: #1f2937;
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+
+.activity-time {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+/* Responsive Design - التصميم المتجاوب */
+@media (max-width: 1024px) {
+  .settings-container {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  
+  .profile-card {
+    order: 2;
+  }
+  
+  .settings-content {
+    order: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .settings-tabs {
+    flex-wrap: wrap;
+  }
+  
+  .tab-btn {
+    flex: 1;
+    min-width: 120px;
+    padding: 12px 16px;
+    font-size: 13px;
+  }
+  
+  .tab-content {
+    padding: 24px;
+  }
+  
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .permission-item,
+  .notification-item,
+  .activity-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .permission-status,
+  .notification-toggle {
+    align-self: stretch;
+  }
+}

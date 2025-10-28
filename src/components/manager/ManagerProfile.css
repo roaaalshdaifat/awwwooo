@@ -1,0 +1,340 @@
+/**
+ * ManagerProfile Styles
+ * تنسيقات صفحة ملف المدير
+ */
+
+.manager-profile {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Manager Content Layout - تخطيط محتوى المدير */
+.manager-content {
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  gap: 32px;
+  margin-top: 24px;
+}
+
+/* Manager Info Sidebar - الشريط الجانبي لمعلومات المدير */
+.manager-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.manager-info-card {
+  background: white;
+  border-radius: 12px;
+  padding: 32px;
+  border: 1px solid #e5e7eb;
+  text-align: center;
+}
+
+.manager-avatar-large {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 700;
+  font-size: 36px;
+  margin: 0 auto 24px;
+}
+
+.manager-details {
+  text-align: center;
+}
+
+.manager-name {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 8px;
+}
+
+.manager-title {
+  font-size: 16px;
+  color: #6366f1;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.manager-department {
+  font-size: 14px;
+  color: #6b7280;
+  margin-bottom: 16px;
+}
+
+.manager-stats {
+  padding-top: 16px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.stat-item {
+  font-size: 14px;
+  color: #374151;
+  font-weight: 500;
+}
+
+/* Main Content Area - منطقة المحتوى الرئيسي */
+.manager-main {
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  overflow: hidden;
+}
+
+/* Section Styles - تنسيقات الأقسام */
+.section {
+  padding: 32px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.section:last-child {
+  border-bottom: none;
+}
+
+.section-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 8px;
+}
+
+.section-subtitle {
+  font-size: 14px;
+  color: #6b7280;
+  margin-bottom: 24px;
+}
+
+/* Personal Information Grid - شبكة المعلومات الشخصية */
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.info-group {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.info-row label {
+  font-size: 14px;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.info-row span {
+  font-size: 14px;
+  color: #1f2937;
+  font-weight: 500;
+}
+
+/* Management Preferences - تفضيلات الإدارة */
+.preferences-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.preference-item h4 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 8px;
+}
+
+.preference-item p {
+  font-size: 14px;
+  color: #6b7280;
+  line-height: 1.6;
+}
+
+/* Direct Reports List - قائمة التقارير المباشرة */
+.reports-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.direct-report-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+  background: #f9fafb;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  transition: all 0.2s ease;
+}
+
+.direct-report-card:hover {
+  background: #f3f4f6;
+  transform: translateY(-1px);
+}
+
+.report-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.report-info {
+  flex: 1;
+}
+
+.report-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 4px;
+}
+
+.report-position {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.report-performance {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.qis-label {
+  font-size: 12px;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.qis-value {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.qis-value.high-performer {
+  color: #10b981;
+}
+
+.qis-value.good-performer {
+  color: #6366f1;
+}
+
+.qis-value.needs-support {
+  color: #f59e0b;
+}
+
+.performance-badge {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.performance-badge.high-performer {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.performance-badge.good-performer {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.performance-badge.needs-support {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+/* Notification Settings - إعدادات الإشعارات */
+.notification-settings {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.notification-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background: #f9fafb;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+}
+
+.notification-info h4 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 4px;
+}
+
+.notification-info p {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.toggle-switch {
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.toggle-switch.enabled {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.toggle-switch.disabled {
+  background: #f3f4f6;
+  color: #6b7280;
+}
+
+/* Responsive Design - التصميم المتجاوب */
+@media (max-width: 768px) {
+  .manager-content {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .direct-report-card {
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+  }
+  
+  .notification-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+}

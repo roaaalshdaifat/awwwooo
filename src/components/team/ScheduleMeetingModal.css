@@ -1,0 +1,22 @@
+.schedule-meeting-modal {
+  max-width: 600px;
+  width: 95%;
+}
+
+.schedule-meeting-modal .modal-header h2 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 640px) {
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}

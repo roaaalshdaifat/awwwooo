@@ -1,0 +1,22 @@
+.content {
+  flex: 1;
+  padding: 24px;
+  background: #f8f9fa;
+  overflow-y: auto;
+}
+
+.page-header {
+  margin-bottom: 24px;
+}
+
+.page-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 8px;
+}
+
+.page-subtitle {
+  font-size: 16px;
+  color: #6b7280;
+}
