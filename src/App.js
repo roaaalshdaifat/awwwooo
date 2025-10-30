@@ -39,7 +39,6 @@ import ManagerProfile from './components/manager/ManagerProfile';
 // استيراد مكونات الإدارة - Admin Components
 import UserManagement from './components/admin/UserManagement';
 import AddEmployeePage from './components/admin/AddEmployeePage';
-import ReportsPage from './components/dashboard/ReportsPage';
 import SettingsPage from './components/admin/SettingsPage';
 
 function App() {
@@ -115,7 +114,6 @@ function App() {
           */}
           <Route path="/profile" element={<ProfilePage user={user} />} />
           <Route path="/meetings" element={<MeetingsPage user={user} />} />
-          <Route path="/reports" element={<ReportsPage user={user} />} />
           
           {/* 
             مسارات المديرين - Manager Routes

@@ -42,9 +42,7 @@ const UserManagement = ({ user }) => {
           <h1 className="page-title">User Management</h1>
           <p className="page-subtitle">Manage all users, roles, and permissions</p>
         </div>
-        <button className="btn btn-primary">
-          👤 Add New User
-        </button>
+       
       </div>
 
       {/* User Statistics - إحصائيات المستخدمين */}
@@ -56,7 +54,7 @@ const UserManagement = ({ user }) => {
             <span className="stat-value">{stats.total}</span>
           </div>
         </div>
-
+2
         <div className="stat-card">
           <div className="stat-icon">✅</div>
           <div className="stat-info">

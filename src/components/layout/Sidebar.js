@@ -51,11 +51,6 @@ const Sidebar = ({ userRole = 'employee' }) => {
         path: '/meetings', 
         icon: '📅', 
         label: 'Meetings' // الاجتماعات - 10-10-10 meetings وإدخالات الأداء
-      },
-      { 
-        path: '/reports', 
-        icon: '📋', 
-        label: 'Reports' // التقارير - تقارير الأداء والإحصائيات
       }
     ];
 

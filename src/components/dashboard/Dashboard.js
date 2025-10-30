@@ -277,10 +277,7 @@ const AdminDashboard = () => {
           <h1 className="page-title">Performance Trends</h1>
           <p className="page-subtitle">Company-wide performance over the last 6 months</p>
         </div>
-        <div className="header-actions">
-          <button className="btn btn-secondary">⚡ System Health</button>
-          <button className="btn btn-secondary">⚙️ Quick Settings</button>
-        </div>
+      
       </div>
 
       <div className="performance-trends-chart">
@@ -333,10 +330,7 @@ const SuperAdminDashboard = () => {
           <h1 className="page-title">Super Admin Dashboard</h1>
           <p className="page-subtitle">Company-wide performance insights and system management</p>
         </div>
-        <div className="header-actions">
-          <button className="btn btn-secondary">⚡ System Health</button>
-          <button className="btn btn-secondary">⚙️ Quick Settings</button>
-        </div>
+
       </div>
 
       <div className="admin-stats">
