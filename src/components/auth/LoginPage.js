@@ -1,36 +1,46 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import './LoginPage.css';
+
+const demoAccounts = [
+  { email: 'admin@example.com', password: 'admin123', role: 'admin', user_id: 1 },
+  { email: 'manager@example.com', password: 'manager123', role: 'manager', user_id: 2 },
+  { email: 'user@example.com', password: 'user123', role: 'user', user_id: 3 },
+  // أضف أو عدّل الحسابات التجريبية كما تريد
+];
+
+const createFakeToken = (email) => {
+  // توليد توكن وهمي بسيط (للاختبار فقط)
+  return btoa(`${email}:${Date.now()}`);
+};
 
 const LoginPage = ({ onLogin }) => {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     setError('');
 
-    try {
-      const response = await axios.post(
-        'https://ohtmeetingproject.onrender.com/login',
-        {
-          email: formData.email,
-          password: formData.password,
-        }
-      );
+    const found = demoAccounts.find(
+      (a) => a.email === formData.email && a.password === formData.password
+    );
 
-      const { accessToken, role, user_id } = response.data;
-
-      // ✅ تخزين التوكن في localStorage
-      localStorage.setItem('token', accessToken);
-      localStorage.setItem('role', role);
-      localStorage.setItem('user_id', user_id);
-
-      // ✅ إرسال بيانات المستخدم للأب App
-      onLogin({ token: accessToken, role, user_id });
-
-    } catch (err) {
+    if (!found) {
       setError('البريد الإلكتروني أو كلمة المرور غير صحيحة ❌');
+      return;
+    }
+
+    const accessToken = createFakeToken(found.email);
+    const { role, user_id } = found;
+
+    // تخزين محلي (مناسب للاختبار فقط)
+    localStorage.setItem('token', accessToken);
+    localStorage.setItem('role', role);
+    localStorage.setItem('user_id', user_id);
+
+    // إرسال البيانات للأب App
+    if (typeof onLogin === 'function') {
+      onLogin({ token: accessToken, role, user_id });
     }
   };
 
@@ -86,6 +96,15 @@ const LoginPage = ({ onLogin }) => {
             Sign In
           </button>
         </form>
+
+        <div className="demo-note" style={{ marginTop: '12px', fontSize: '0.9rem' }}>
+          <strong>ملاحظة:</strong> هذا الدخول محلي (محاكاة). جرب:
+          <ul style={{ margin: '6px 0 0 18px' }}>
+            <li>admin@example.com / admin123</li>
+            <li>manager@example.com / manager123</li>
+            <li>user@example.com / user123</li>
+          </ul>
+        </div>
       </div>
     </div>
   );
