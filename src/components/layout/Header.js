@@ -3,7 +3,7 @@
  * Application Header Component
  * 
  * هذا المكون يحتوي على:
- * - شعار التطبيق (PerformanceAI Logo)
+ * - شعار التطبيق (Ops Heaven Logo)
  * - شريط البحث العام (Global Search Bar)
  * - إشعارات المستخدم (User Notifications)
  * - قائمة المستخدم (User Profile Menu)
@@ -21,8 +21,9 @@ import './Header.css';
 /**
  * Header Component - المكون الرئيسي للشريط العلوي
  * @param {Object} user - بيانات المستخدم الحالي
+ * @param {Function} onLogout - دالة تسجيل الخروج
  */
-const Header = ({ user }) => {
+const Header = ({ user, onLogout }) => {
   return (
     <header className="header">
       {/* 
@@ -32,26 +33,18 @@ const Header = ({ user }) => {
       <div className="header-left">
         {/* 
           شعار التطبيق - Application Logo
-          يعرض اسم وأيقونة PerformanceAI
+          يعرض اسم وأيقونة Ops Heaven
         */}
         <div className="logo">
           <div className="logo-icon">📊</div> {/* أيقونة الرسم البياني - Chart icon */}
-          <span className="logo-text">PerformanceAI</span> {/* اسم التطبيق */}
+          <span className="logo-text">Ops Heaven</span> {/* اسم التطبيق */}
         </div>
         
         {/* 
           حاوي شريط البحث - Search container
           يسمح بالبحث عبر النظام في الموظفين والاجتماعات والتقارير
         */}
-        <div className="search-container">
-          <input 
-            type="text" 
-            placeholder="Search employees, meetings, reports..." 
-            className="search-input"
-            /* TODO: إضافة وظيفة البحث الفعلية */
-          />
-          <div className="search-icon">🔍</div> {/* أيقونة البحث - Search icon */}
-        </div>
+       
       </div>
       
       {/* 
@@ -63,11 +56,23 @@ const Header = ({ user }) => {
           قسم الإشعارات - Notifications section
           يعرض الإشعارات مع عداد للإشعارات الجديدة
         */}
-        <div className="notifications">
-          <div className="notification-icon">🔔</div> {/* أيقونة الجرس - Bell icon */}
-          <span className="notification-badge">2</span> {/* عداد الإشعارات - Notification count */}
-          {/* TODO: إضافة قائمة منسدلة للإشعارات */}
-        </div>
+     
+        
+        {/* 
+          زر تسجيل الدخول - Login button
+          يقوم بتسجيل الخروج والعودة لصفحة تسجيل الدخول
+        */}
+        <button 
+          className="login-btn"
+          onClick={() => {
+            if (onLogout) {
+              onLogout(); // تسجيل الخروج والعودة لصفحة تسجيل الدخول
+            }
+          }}
+          title="تسجيل خروج / العودة لصفحة تسجيل الدخول"
+        >
+          LOGOUT
+        </button>
         
         {/* 
           قائمة المستخدم - User menu section

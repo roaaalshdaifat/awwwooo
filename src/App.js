@@ -1,6 +1,6 @@
 /**
  * App.js - المكون الجذر للتطبيق
- * Main Application Component for PerformanceAI
+ * Main Application Component for Ops Heaven
  * 
  * هذا الملف يحتوي على:
  * - إعداد المسارات الرئيسية (Routing) 
@@ -94,7 +94,7 @@ function App() {
         يحتوي على Header, Sidebar, وحاوي المحتوى الرئيسي
         يتم تمرير بيانات المستخدم لعرض القوائم المناسبة
       */}
-      <Layout user={user}>
+      <Layout user={user} onLogout={handleLogout}>
         <Routes>
           {/* 
             المسار الافتراضي - Default Route

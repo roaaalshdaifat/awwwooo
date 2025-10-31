@@ -99,7 +99,7 @@ const Sidebar = ({ userRole = 'employee' }) => {
         { 
           path: '/settings', 
           icon: '🔧', 
-          label: 'Settings' // الإعدادات - إعدادات النظام والحساب
+          label: 'Settings Profile' // الإعدادات - إعدادات النظام والحساب
         }
       ];
     }

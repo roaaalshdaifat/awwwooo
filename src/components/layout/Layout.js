@@ -33,8 +33,9 @@ import './Layout.css';
  * Layout Component - المكون الرئيسي للتخطيط
  * @param {React.ReactNode} children - المكونات الفرعية (صفحات التطبيق)
  * @param {Object} user - بيانات المستخدم الحالي
+ * @param {Function} onLogout - دالة تسجيل الخروج
  */
-const Layout = ({ children, user }) => {
+const Layout = ({ children, user, onLogout }) => {
   return (
     <div className="app">
       {/* 
@@ -54,7 +55,7 @@ const Layout = ({ children, user }) => {
           يحتوي على الشعار، البحث، الإشعارات، ومعلومات المستخدم
           يظهر في جميع الصفحات
         */}
-        <Header user={user} />
+        <Header user={user} onLogout={onLogout} />
         
         {/* 
           منطقة المحتوى المتغير - Dynamic content area

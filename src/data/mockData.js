@@ -1,6 +1,6 @@
 /**
- * Mock Data for PerformanceAI Application
- * بيانات تجريبية لتطبيق PerformanceAI
+ * Mock Data for Ops Heaven Application
+ * بيانات تجريبية لتطبيق Ops Heaven
  * 
  * This file contains all the sample data used throughout the application:
  * - Users with different roles (employees, managers, admins)

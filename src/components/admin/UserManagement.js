@@ -4,134 +4,78 @@ import './UserManagement.css';
 
 /**
  * UserManagement Component
- * إدارة المستخدمين الكاملة - صفحة الإدارة العليا
+ * إدارة المستخدمين - صفحة الإدارة العليا
  * Features:
- * - عرض إحصائيات المستخدمين
  * - جدول المستخدمين مع البحث والفلترة
- * - إدارة الأدوار والصلاحيات
- * - إضافة مستخدمين جدد
+ * - أنيميشن عند ظهور الصفوف
  */
-const UserManagement = ({ user }) => {
+const UserManagement = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [roleFilter, setRoleFilter] = useState('All Roles');
   const [statusFilter, setStatusFilter] = useState('All Status');
 
-  // فلترة المستخدمين حسب البحث والفلاتر
+  // فلترة المستخدمين
   const filteredUsers = mockUsers.filter(u => {
-    const matchesSearch = u.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         u.email.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesSearch =
+      u.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      u.email.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesRole = roleFilter === 'All Roles' || u.role === roleFilter;
     const matchesStatus = statusFilter === 'All Status' || u.status === statusFilter;
-    
+
     return matchesSearch && matchesRole && matchesStatus;
   });
 
-  // حساب الإحصائيات
-  const stats = {
-    total: mockUsers.length,
-    active: mockUsers.filter(u => u.status === 'active').length,
-    managers: mockUsers.filter(u => u.role === 'manager').length,
-    superAdmins: mockUsers.filter(u => u.role === 'super-admin').length
-  };
-
   return (
     <div className="user-management">
-      {/* Page Header - عنوان الصفحة */}
+      {/* Page Header */}
       <div className="page-header">
-        <div className="header-main">
-          <h1 className="page-title">User Management</h1>
-          <p className="page-subtitle">Manage all users, roles, and permissions</p>
-        </div>
-       
+        <h1 className="page-title">User Management</h1>
+        <p className="page-subtitle">Manage all users, roles, and permissions</p>
       </div>
 
-      {/* User Statistics - إحصائيات المستخدمين */}
-      <div className="user-stats">
-        <div className="stat-card">
-          <div className="stat-icon">👥</div>
-          <div className="stat-info">
-            <span className="stat-label">Total Users</span>
-            <span className="stat-value">{stats.total}</span>
-          </div>
-        </div>
-2
-        <div className="stat-card">
-          <div className="stat-icon">✅</div>
-          <div className="stat-info">
-            <span className="stat-label">Active Users</span>
-            <span className="stat-value">{stats.active}</span>
-          </div>
+      {/* Search and Filters */}
+      <div className="users-controls">
+        <div className="search-container">
+          <input
+            type="text"
+            placeholder="Search users by name or email..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="search-input"
+          />
+          <span className="search-icon">🔍</span>
         </div>
 
-        <div className="stat-card">
-          <div className="stat-icon">👑</div>
-          <div className="stat-info">
-            <span className="stat-label">Managers</span>
-            <span className="stat-value">{stats.managers}</span>
-          </div>
-        </div>
+        <div className="filters-container">
+          <select
+            value={roleFilter}
+            onChange={(e) => setRoleFilter(e.target.value)}
+            className="filter-select"
+          >
+            <option>All Roles</option>
+            <option value="employee">Employee</option>
+            <option value="manager">Manager</option>
+            <option value="admin">Admin</option>
+            <option value="super-admin">Super Admin</option>
+          </select>
 
-        <div className="stat-card">
-          <div className="stat-icon">⭐</div>
-          <div className="stat-info">
-            <span className="stat-label">Super Admins</span>
-            <span className="stat-value">{stats.superAdmins}</span>
-          </div>
+          <select
+            value={statusFilter}
+            onChange={(e) => setStatusFilter(e.target.value)}
+            className="filter-select"
+          >
+            <option>All Status</option>
+            <option value="active">Active</option>
+            <option value="inactive">Inactive</option>
+          </select>
         </div>
       </div>
 
-      {/* Users Table Section - قسم جدول المستخدمين */}
-      <div className="users-section">
-        {/* Search and Filters - البحث والفلاتر */}
-        <div className="users-controls">
-          <div className="search-container">
-            <input
-              type="text"
-              placeholder="Search users by name, email, or department..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="search-input"
-            />
-            <span className="search-icon">🔍</span>
-          </div>
-          
-          <div className="filters-container">
-            <select
-              value={roleFilter}
-              onChange={(e) => setRoleFilter(e.target.value)}
-              className="filter-select"
-            >
-              <option>All Roles</option>
-              <option value="employee">Employee</option>
-              <option value="manager">Manager</option>
-              <option value="admin">Admin</option>
-              <option value="super-admin">Super Admin</option>
-            </select>
-            
-            <select
-              value={statusFilter}
-              onChange={(e) => setStatusFilter(e.target.value)}
-              className="filter-select"
-            >
-              <option>All Status</option>
-              <option value="active">Active</option>
-              <option value="inactive">Inactive</option>
-            </select>
-          </div>
-        </div>
-
-        {/* Users List Header - رأس قائمة المستخدمين */}
-        <div className="users-header">
-          <h3>All Users</h3>
-          <p>Showing {filteredUsers.length} of {mockUsers.length} users</p>
-        </div>
-
-        {/* Users Table - جدول المستخدمين */}
-        <div className="users-table">
-          {filteredUsers.map(user => (
-            <UserRow key={user.id} user={user} />
-          ))}
-        </div>
+      {/* Users Table */}
+      <div className="users-table">
+        {filteredUsers.map((user, index) => (
+          <UserRow key={user.id} user={user} index={index} />
+        ))}
       </div>
     </div>
   );
@@ -139,9 +83,9 @@ const UserManagement = ({ user }) => {
 
 /**
  * UserRow Component
- * صف المستخدم في الجدول
+ * صف المستخدم مع أنيميشن عند الظهور
  */
-const UserRow = ({ user }) => {
+const UserRow = ({ user, index }) => {
   const getRoleBadge = (role) => {
     const badges = {
       'employee': { color: 'green', icon: '👤', text: 'Employee' },
@@ -153,7 +97,7 @@ const UserRow = ({ user }) => {
   };
 
   const getStatusBadge = (status) => {
-    return status === 'active' 
+    return status === 'active'
       ? { color: 'green', text: 'Active' }
       : { color: 'red', text: 'Inactive' };
   };
@@ -162,43 +106,29 @@ const UserRow = ({ user }) => {
   const statusBadge = getStatusBadge(user.status);
 
   return (
-    <div className="user-row">
-      {/* User Info - معلومات المستخدم */}
+    <div className="user-row" style={{ animationDelay: `${index * 0.05}s` }}>
       <div className="user-info">
-        <div className="user-avatar">
-          {user.avatar || user.name?.charAt(0)}
-        </div>
+        <div className="user-avatar">{user.avatar || user.name.charAt(0)}</div>
         <div className="user-details">
           <h4 className="user-name">{user.name}</h4>
           <p className="user-email">{user.email}</p>
         </div>
       </div>
 
-      {/* Role Badge - شارة الدور */}
       <div className="user-role">
         <span className={`role-badge ${roleBadge.color}`}>
           {roleBadge.icon} {roleBadge.text}
         </span>
       </div>
 
-      {/* Department - القسم */}
-      <div className="user-department">
-        <span>{user.department || 'Unknown'}</span>
-      </div>
+      <div className="user-department">{user.department || 'Unknown'}</div>
 
-      {/* Status Badge - شارة الحالة */}
       <div className="user-status">
-        <span className={`status-badge ${statusBadge.color}`}>
-          {statusBadge.text}
-        </span>
+        <span className={`status-badge ${statusBadge.color}`}>{statusBadge.text}</span>
       </div>
 
-      {/* Join Date - تاريخ الانضمام */}
-      <div className="user-date">
-        <span>{user.startDate || '2024-01-20'}</span>
-      </div>
+      <div className="user-date">{user.startDate || '2024-01-20'}</div>
 
-      {/* Actions - الإجراءات */}
       <div className="user-actions">
         <button className="action-btn">⋯</button>
       </div>
