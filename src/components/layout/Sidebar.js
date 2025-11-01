@@ -65,11 +65,6 @@ const Sidebar = ({ userRole = 'employee' }) => {
           path: '/team', 
           icon: '👥', 
           label: 'Team' // إدارة الفريق - عرض وإدارة أعضاء الفريق
-        },
-        { 
-          path: '/add-employee', 
-          icon: '➕', 
-          label: 'Add Employee' // إضافة موظف - نموذج إضافة موظف جديد
         }
       ];
     }
@@ -90,16 +85,6 @@ const Sidebar = ({ userRole = 'employee' }) => {
           path: '/user-management', 
           icon: '⚙️', 
           label: 'User Management' // إدارة المستخدمين - عرض وتعديل جميع المستخدمين
-        },
-        { 
-          path: '/add-employee', 
-          icon: '➕', 
-          label: 'Add Employee' // إضافة موظف - إضافة موظفين جدد
-        },
-        { 
-          path: '/settings', 
-          icon: '🔧', 
-          label: 'Settings Profile' // الإعدادات - إعدادات النظام والحساب
         }
       ];
     }

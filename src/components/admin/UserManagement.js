@@ -1,136 +1,197 @@
 import React, { useState } from 'react';
 import { mockUsers } from '../../data/mockData';
+import AddEmployeePage from './AddEmployeePage';
 import './UserManagement.css';
 
-/**
- * UserManagement Component
- * إدارة المستخدمين - صفحة الإدارة العليا
- * Features:
- * - جدول المستخدمين مع البحث والفلترة
- * - أنيميشن عند ظهور الصفوف
- */
 const UserManagement = () => {
+  const [users, setUsers] = useState(mockUsers);
+  const [activeTab, setActiveTab] = useState('users-list');
   const [searchTerm, setSearchTerm] = useState('');
-  const [roleFilter, setRoleFilter] = useState('All Roles');
-  const [statusFilter, setStatusFilter] = useState('All Status');
+  const [editingUser, setEditingUser] = useState(null);
+  const [meetingUser, setMeetingUser] = useState(null);
 
-  // فلترة المستخدمين
-  const filteredUsers = mockUsers.filter(u => {
-    const matchesSearch =
-      u.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      u.email.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesRole = roleFilter === 'All Roles' || u.role === roleFilter;
-    const matchesStatus = statusFilter === 'All Status' || u.status === statusFilter;
+  const handleDelete = (id) => {
+    setUsers(users.filter(u => u.id !== id));
+  };
 
-    return matchesSearch && matchesRole && matchesStatus;
-  });
+  const handleSaveEdit = () => {
+    setUsers(users.map(u => (u.id === editingUser.id ? editingUser : u)));
+    setEditingUser(null);
+  };
+
+  const filteredUsers = users.filter(u => 
+    u.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    u.email.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div className="user-management">
-      {/* Page Header */}
       <div className="page-header">
-        <h1 className="page-title">User Management</h1>
-        <p className="page-subtitle">Manage all users, roles, and permissions</p>
+        <h1>User Management</h1>
+        <p>Manage all users, roles, and permissions</p>
       </div>
 
-      {/* Search and Filters */}
-      <div className="users-controls">
-        <div className="search-container">
-          <input
-            type="text"
-            placeholder="Search users by name or email..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="search-input"
-          />
-          <span className="search-icon">🔍</span>
+      <div className="tabs-container">
+        <button 
+          className={`tab-button ${activeTab === 'users-list' ? 'active' : ''}`}
+          onClick={() => setActiveTab('users-list')}
+        >
+          📋 Users List
+        </button>
+        <button 
+          className={`tab-button ${activeTab === 'add-employee' ? 'active' : ''}`}
+          onClick={() => setActiveTab('add-employee')}
+        >
+          ➕ Add user
+        </button>
+      </div>
+
+      {activeTab === 'users-list' ? (
+        <div className="users-list-tab">
+          <div className="users-controls">
+            <input
+              type="text"
+              placeholder="Search users..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="search-input"
+            />
+          </div>
+
+          <div className="users-list">
+            {filteredUsers.map((user, index) => (
+              <UserCard
+                key={user.id}
+                user={user}
+                index={index}
+                onEdit={() => setEditingUser(user)}
+                onDelete={() => handleDelete(user.id)}
+                onMeeting={() => setMeetingUser(user)}
+              />
+            ))}
+          </div>
         </div>
+      ) : (
+        <AddEmployeePage />
+      )}
 
-        <div className="filters-container">
-          <select
-            value={roleFilter}
-            onChange={(e) => setRoleFilter(e.target.value)}
-            className="filter-select"
-          >
-            <option>All Roles</option>
-            <option value="employee">Employee</option>
-            <option value="manager">Manager</option>
-            <option value="admin">Admin</option>
-            <option value="super-admin">Super Admin</option>
-          </select>
+      {editingUser && (
+        <div className="modal-overlay">
+          <div className="modal">
+            <h3>Edit User</h3>
+            <input
+              type="text"
+              value={editingUser.name}
+              onChange={(e) => setEditingUser({...editingUser, name: e.target.value})}
+            />
+            <input
+              type="email"
+              value={editingUser.email}
+              onChange={(e) => setEditingUser({...editingUser, email: e.target.value})}
+            />
+            <select
+              value={editingUser.role}
+              onChange={(e) => setEditingUser({...editingUser, role: e.target.value})}
+            >
+              <option value="employee">Employee</option>
+              <option value="manager">Manager</option>
+              <option value="admin">Admin</option>
+              <option value="super-admin">Super Admin</option>
+            </select>
 
-          <select
-            value={statusFilter}
-            onChange={(e) => setStatusFilter(e.target.value)}
-            className="filter-select"
-          >
-            <option>All Status</option>
-            <option value="active">Active</option>
-            <option value="inactive">Inactive</option>
-          </select>
+            <div className="modal-actions">
+              <button onClick={handleSaveEdit} className="save-btn">Save</button>
+              <button onClick={() => setEditingUser(null)} className="cancel-btn">Cancel</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {meetingUser && (
+        <ScheduleMeetingModal
+          employee={meetingUser}
+          onClose={() => setMeetingUser(null)}
+        />
+      )}
+    </div>
+  );
+};
+
+const UserCard = ({ user, index, onEdit, onDelete, onMeeting }) => {
+  const roleColors = {
+    employee: '#10b981',
+    manager: '#3b82f6',
+    admin: '#8b5cf6',
+    'super-admin': '#f59e0b'
+  };
+
+  return (
+    <div
+      className="user-card"
+      style={{
+        borderLeft: `5px solid ${roleColors[user.role]}`,
+        animationDelay: `${index * 0.05}s`
+      }}
+    >
+      <div className="user-info">
+        <div className="user-avatar">{user.name.charAt(0)}</div>
+        <div className="user-details">
+          <h4>{user.name}</h4>
+          <p>{user.email}</p>
+          <span className="role-badge" style={{backgroundColor: roleColors[user.role]}}>
+            {user.role.toUpperCase()}
+          </span>
         </div>
       </div>
 
-      {/* Users Table */}
-      <div className="users-table">
-        {filteredUsers.map((user, index) => (
-          <UserRow key={user.id} user={user} index={index} />
-        ))}
+      <div className="user-actions">
+        <button onClick={onEdit} className="action-btn edit-btn">✏️</button>
+        <button onClick={onDelete} className="action-btn delete-btn">🗑️</button>
+        <button 
+          className="action-btn menu-btn"
+          onClick={onMeeting}
+        >
+          Schedule Meeting
+        </button>
       </div>
     </div>
   );
 };
 
-/**
- * UserRow Component
- * صف المستخدم مع أنيميشن عند الظهور
- */
-const UserRow = ({ user, index }) => {
-  const getRoleBadge = (role) => {
-    const badges = {
-      'employee': { color: 'green', icon: '👤', text: 'Employee' },
-      'manager': { color: 'blue', icon: '👑', text: 'Manager' },
-      'admin': { color: 'purple', icon: '⚙️', text: 'Admin' },
-      'super-admin': { color: 'orange', icon: '⭐', text: 'SuperAdmin' }
-    };
-    return badges[role] || badges['employee'];
-  };
+const ScheduleMeetingModal = ({ employee, onClose }) => {
+  const [meetingType, setMeetingType] = useState('Standup');
+  const [date, setDate] = useState('');
+  const [time, setTime] = useState('');
+  const [duration, setDuration] = useState('30 mins');
 
-  const getStatusBadge = (status) => {
-    return status === 'active'
-      ? { color: 'green', text: 'Active' }
-      : { color: 'red', text: 'Inactive' };
+  const handleSave = () => {
+    console.log("Meeting Scheduled:", { employee, meetingType, date, time, duration });
+    alert(`Meeting with ${employee.name} scheduled!`);
+    onClose();
   };
-
-  const roleBadge = getRoleBadge(user.role);
-  const statusBadge = getStatusBadge(user.status);
 
   return (
-    <div className="user-row" style={{ animationDelay: `${index * 0.05}s` }}>
-      <div className="user-info">
-        <div className="user-avatar">{user.avatar || user.name.charAt(0)}</div>
-        <div className="user-details">
-          <h4 className="user-name">{user.name}</h4>
-          <p className="user-email">{user.email}</p>
+    <div className="modal-overlay">
+      <div className="modal">
+        <h3>Schedule Meeting with {employee.name}</h3>
+        <select value={meetingType} onChange={(e) => setMeetingType(e.target.value)}>
+          <option>Standup</option>
+          <option>1:1</option>
+          <option>Team Meeting</option>
+          <option>Project Review</option>
+        </select>
+        <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
+        <input type="time" value={time} onChange={(e) => setTime(e.target.value)} />
+        <select value={duration} onChange={(e) => setDuration(e.target.value)}>
+          <option>15 mins</option>
+          <option>30 mins</option>
+          <option>45 mins</option>
+          <option>60 mins</option>
+        </select>
+        <div className="modal-actions">
+          <button onClick={handleSave} className="save-btn">Save</button>
+          <button onClick={onClose} className="cancel-btn">Cancel</button>
         </div>
-      </div>
-
-      <div className="user-role">
-        <span className={`role-badge ${roleBadge.color}`}>
-          {roleBadge.icon} {roleBadge.text}
-        </span>
-      </div>
-
-      <div className="user-department">{user.department || 'Unknown'}</div>
-
-      <div className="user-status">
-        <span className={`status-badge ${statusBadge.color}`}>{statusBadge.text}</span>
-      </div>
-
-      <div className="user-date">{user.startDate || '2024-01-20'}</div>
-
-      <div className="user-actions">
-        <button className="action-btn">⋯</button>
       </div>
     </div>
   );

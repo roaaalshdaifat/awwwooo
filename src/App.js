@@ -38,8 +38,6 @@ import ManagerProfile from './components/manager/ManagerProfile';
 
 // استيراد مكونات الإدارة - Admin Components
 import UserManagement from './components/admin/UserManagement';
-import AddEmployeePage from './components/admin/AddEmployeePage';
-import SettingsPage from './components/admin/SettingsPage';
 
 function App() {
   /**
@@ -118,14 +116,12 @@ function App() {
           {/* 
             مسارات المديرين - Manager Routes
             متاحة للمديرين والإدارة فقط (manager, admin, super-admin)
-            تتضمن إدارة الفرق وإضافة موظفين جدد
+            تتضمن إدارة الفرق
           */}
           {(user.role === 'manager' || user.role === 'admin' || user.role === 'super-admin') && (
             <>
               {/* إدارة الفرق - عرض وإدارة أعضاء الفريق */}
               <Route path="/team" element={<TeamManagement user={user} />} />
-              {/* إضافة موظف جديد - نموذج شامل لإضافة موظفين */}
-              <Route path="/add-employee" element={<AddEmployeePage user={user} />} />
             </>
           )}
           
@@ -138,8 +134,6 @@ function App() {
             <>
               {/* إدارة المستخدمين - عرض وتعديل بيانات جميع المستخدمين */}
               <Route path="/user-management" element={<UserManagement user={user} />} />
-              {/* إعدادات النظام - إعدادات شخصية وأمان وإشعارات */}
-              <Route path="/settings" element={<SettingsPage user={user} />} />
             </>
           )}
           

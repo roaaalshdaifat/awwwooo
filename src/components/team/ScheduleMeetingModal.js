@@ -1,162 +1,168 @@
 import React, { useState } from 'react';
 import './ScheduleMeetingModal.css';
 
-const ScheduleMeetingModal = ({ employee, onClose }) => {
+// ✅ بيانات جاهزة لمدراء وموظفين
+const managersList = [
+  { id: 1, name: "Ahmed Hasan" },
+  { id: 2, name: "Rania Khaled" },
+  { id: 3, name: "Omar Zaid" }
+];
+
+const employeesList = [
+  { id: 101, name: "Sara Ali", managerId: 1 },
+  { id: 102, name: "Heba Mahmoud", managerId: 1 },
+
+  { id: 201, name: "Mohammad Samir", managerId: 2 },
+  { id: 202, name: "Lama Tareq", managerId: 2 },
+
+  { id: 301, name: "Yousef Ahmad", managerId: 3 },
+  { id: 302, name: "Nour Fares", managerId: 3 },
+];
+
+const ScheduleMeetingModal = ({ onClose }) => {
   const [formData, setFormData] = useState({
+    managerId: '',
+    employeeId: '',
     title: '',
-    type: '',
     date: '',
-    time: '',
-    duration: '1 hour',
-    location: '',
-    agenda: '',
-    notes: ''
+    time: ''
   });
+
+  const filteredEmployees = employeesList.filter(
+    (emp) => emp.managerId === Number(formData.managerId)
+  );
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    // تحديث الموظفين بعد تغيير المدير
+    if (name === "managerId") {
+      setFormData({
+        ...formData,
+        managerId: value,
+        employeeId: ""
+      });
+    } else {
+      setFormData({
+        ...formData,
+        [name]: value
+      });
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Scheduling meeting:', formData);
-    onClose();
-  };
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    if (!formData.managerId || !formData.employeeId) {
+      alert("⚠️ لازم تختاري المدير والموظف قبل حفظ الاجتماع");
+      return;
+    }
+
+    console.log("📌 Meeting Scheduled:", formData);
+    alert("✅ تم جدولة الاجتماع بنجاح");
+    onClose();
   };
 
   return (
     <div className="modal-overlay">
       <div className="modal schedule-meeting-modal">
+
         <div className="modal-header">
-          <h2>📅 Schedule Meeting with {employee?.name}</h2>
+          <h2>📅 Schedule a Meeting</h2>
           <button className="modal-close" onClick={onClose}>×</button>
         </div>
 
-        <div className="modal-body">
-          <p className="modal-subtitle">
-            Schedule a new meeting or performance review session
-          </p>
+        <form onSubmit={handleSubmit} className="modal-body">
 
-          <form onSubmit={handleSubmit}>
-            <div className="form-group">
-              <label className="form-label">Meeting Title *</label>
-              <input
-                type="text"
-                name="title"
-                value={formData.title}
+          {/* اختيار المدير */}
+          <div className="form-group">
+            <label className="form-label">Select Manager *</label>
+            <select 
+              name="managerId" 
+              value={formData.managerId}
+              onChange={handleChange}
+              className="form-input"
+              required
+            >
+              <option value="">Choose Manager</option>
+              {managersList.map((m) => (
+                <option key={m.id} value={m.id}>{m.name}</option>
+              ))}
+            </select>
+          </div>
+
+          {/* يظهر الموظف فقط بعد اختيار المدير */}
+          {formData.managerId && (
+            <div className="form-group fade-in">
+              <label className="form-label">Select Employee *</label>
+              <select 
+                name="employeeId" 
+                value={formData.employeeId}
                 onChange={handleChange}
                 className="form-input"
-                placeholder="Enter meeting title"
-                required
-              />
-            </div>
-
-            <div className="form-group">
-              <label className="form-label">Meeting Type *</label>
-              <select
-                name="type"
-                value={formData.type}
-                onChange={handleChange}
-                className="form-select"
                 required
               >
-                <option value="">Select meeting type</option>
-                <option value="10-10-10">10-10-10 Review</option>
-                <option value="performance">Performance Review</option>
-                <option value="1-on-1">1-on-1 Meeting</option>
-                <option value="goal-setting">Goal Setting</option>
+                <option value="">Choose Employee</option>
+
+                {filteredEmployees.map((e) => (
+                  <option key={e.id} value={e.id}>{e.name}</option>
+                ))}
               </select>
             </div>
+          )}
 
-            <div className="form-row">
-              <div className="form-group">
-                <label className="form-label">Date *</label>
-                <input
-                  type="date"
-                  name="date"
-                  value={formData.date}
-                  onChange={handleChange}
-                  className="form-input"
-                  required
-                />
-              </div>
+          {/* عنوان الاجتماع */}
+          <div className="form-group">
+            <label className="form-label">Meeting Title *</label>
+            <input
+              type="text"
+              name="title"
+              value={formData.title}
+              onChange={handleChange}
+              className="form-input"
+              placeholder="Ex: Monthly Performance Review"
+              required
+            />
+          </div>
 
-              <div className="form-group">
-                <label className="form-label">Time *</label>
-                <input
-                  type="time"
-                  name="time"
-                  value={formData.time}
-                  onChange={handleChange}
-                  className="form-input"
-                  required
-                />
-              </div>
-            </div>
-
-            <div className="form-row">
-              <div className="form-group">
-                <label className="form-label">Duration (minutes)</label>
-                <select
-                  name="duration"
-                  value={formData.duration}
-                  onChange={handleChange}
-                  className="form-select"
-                >
-                  <option value="30 minutes">30 minutes</option>
-                  <option value="1 hour">1 hour</option>
-                  <option value="1.5 hours">1.5 hours</option>
-                  <option value="2 hours">2 hours</option>
-                </select>
-              </div>
-
-              <div className="form-group">
-                <label className="form-label">Location/Link</label>
-                <input
-                  type="text"
-                  name="location"
-                  value={formData.location}
-                  onChange={handleChange}
-                  className="form-input"
-                  placeholder="Conference room or video link"
-                />
-              </div>
-            </div>
-
+          {/* التاريخ والوقت */}
+          <div className="form-row">
             <div className="form-group">
-              <label className="form-label">Agenda</label>
-              <textarea
-                name="agenda"
-                value={formData.agenda}
+              <label className="form-label">Date *</label>
+              <input 
+                type="date"
+                name="date"
+                value={formData.date}
                 onChange={handleChange}
-                className="form-input form-textarea"
-                placeholder="Meeting agenda and key topics to discuss"
+                className="form-input"
+                required
               />
             </div>
 
             <div className="form-group">
-              <label className="form-label">Additional Notes</label>
-              <textarea
-                name="notes"
-                value={formData.notes}
+              <label className="form-label">Time *</label>
+              <input 
+                type="time"
+                name="time"
+                value={formData.time}
                 onChange={handleChange}
-                className="form-input form-textarea"
-                placeholder="Any additional notes or preparation instructions"
+                className="form-input"
+                required
               />
             </div>
+          </div>
 
-            <div className="modal-actions">
-              <button type="button" className="btn btn-secondary" onClick={onClose}>
-                Cancel
-              </button>
-              <button type="submit" className="btn btn-primary">
-                Schedule Meeting
-              </button>
-            </div>
-          </form>
-        </div>
+          <div className="modal-actions">
+            <button type="button" className="btn btn-secondary" onClick={onClose}>
+              Cancel
+            </button>
+            <button type="submit" className="btn btn-primary">
+              Schedule Meeting
+            </button>
+          </div>
+
+        </form>
+
       </div>
     </div>
   );

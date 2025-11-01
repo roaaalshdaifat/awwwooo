@@ -120,8 +120,8 @@ const AddEmployeePage = ({ user }) => {
   return (
     <div className="add-employee-page">
       <div className="page-header">
-        <h1 className="page-title">Add New Employee</h1>
-        <p className="page-subtitle">Create a new employee account and profile</p>
+        <h1 className="page-title">Add New user</h1>
+        {/* <p className="page-subtitle">Create a new employee account and profile</p> */}
       </div>
 
       <div className="employee-form-container">

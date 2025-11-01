@@ -144,15 +144,12 @@ const TeamMemberCard = ({ member, onViewDetails, onScheduleMeeting }) => {
         </div>
       </div>
 
-      <div className="member-actions">
-        <button className="btn btn-secondary" onClick={onViewDetails}>
-          👤 View Details
-        </button>
+      
         <button className="btn btn-primary" onClick={onScheduleMeeting}>
           📅 Schedule Meeting
         </button>
       </div>
-    </div>
+   
   );
 };
 
